@@ -7,7 +7,7 @@ module.exports.createMovie = (req, res, next) => {
   const owner = req.user._id;
   Movie.create({ owner, ...req.body })
     .then((data) => {
-      res.status(201).send(data);
+      res.status(200).send(data);
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {

@@ -1,19 +1,33 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { errors } = require('celebrate');
 const { MONGO_DB_URL, PORT } = require('./utils/config');
-// const auth = require('./middlewares/auth');
-// const usersRouter = require('./routes/users');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const auth = require('./middlewares/auth');
 const loginRouter = require('./routes/login');
+const usersRouter = require('./routes/users');
+const moviesRouter = require('./routes/movies');
 
 const app = express();
 
 mongoose.connect(MONGO_DB_URL, { useNewUrlParser: true });
 app.use(express.json());
 
+app.use(requestLogger);
+
 app.use('/', loginRouter);
-// app.use(auth);
+
+app.use(auth);
+
+app.use('/', usersRouter);
+app.use('/', moviesRouter);
+
+app.use(errorLogger);
+
+app.use(errors());
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App works at port ${PORT}`);
 });
+// настроить лимитер, прописать ошибки;
