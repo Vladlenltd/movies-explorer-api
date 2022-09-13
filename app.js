@@ -7,10 +7,11 @@ const { MONGO_DB_URL, PORT } = require('./utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
 const auth = require('./middlewares/auth');
-const errorHandler = require('./middlewares/errorHandler');
+const { errorHandler } = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/login');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
+const errorRouter = require('./routes/error');
 
 const app = express();
 
@@ -18,7 +19,7 @@ mongoose.connect(MONGO_DB_URL, { useNewUrlParser: true });
 app.use(express.json());
 
 app.use(requestLogger);
-app.use(helmet);
+app.use(helmet());
 app.use(limiter);
 
 app.use(cors());
@@ -29,6 +30,8 @@ app.use(auth);
 
 app.use('/', usersRouter);
 app.use('/', moviesRouter);
+
+app.all('*', errorRouter);
 
 app.use(errorLogger);
 
