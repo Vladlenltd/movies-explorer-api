@@ -7,6 +7,7 @@ const { MONGO_DB_URL, PORT } = require('./utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
 const auth = require('./middlewares/auth');
+const errorHandler = require('./middlewares/errorHandler');
 const loginRouter = require('./routes/login');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
@@ -32,6 +33,8 @@ app.use('/', moviesRouter);
 app.use(errorLogger);
 
 app.use(errors());
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
