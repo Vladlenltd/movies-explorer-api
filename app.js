@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const { MONGO_DB_URL, PORT } = require('./utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const limiter = require('./middlewares/limiter');
 const auth = require('./middlewares/auth');
 const loginRouter = require('./routes/login');
 const usersRouter = require('./routes/users');
@@ -14,7 +15,7 @@ mongoose.connect(MONGO_DB_URL, { useNewUrlParser: true });
 app.use(express.json());
 
 app.use(requestLogger);
-
+app.use(limiter);
 app.use('/', loginRouter);
 
 app.use(auth);
@@ -30,4 +31,4 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App works at port ${PORT}`);
 });
-// настроить лимитер, прописать ошибки;
+// прописать ошибки;
