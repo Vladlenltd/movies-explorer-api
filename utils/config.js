@@ -1,4 +1,4 @@
-const MONGO_DB_URL = 'mongodb://localhost:27017/cinemadb';
+const MONGO_DB_URL = 'mongodb://localhost:27017/moviesdb';
 const {
   PORT = 3000,
   JWT_SECRET_KEY = 'very-very-secret-key',
