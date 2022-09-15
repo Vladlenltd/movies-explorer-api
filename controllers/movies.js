@@ -11,7 +11,7 @@ module.exports.createMovie = (req, res, next) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        next(new NotFoundError('Данные не найдены'));
+        next(new BadRequest('Данные не найдены'));
       } else {
         next(error);
       }
@@ -35,7 +35,7 @@ module.exports.getMovies = (req, res, next) => {
 
 module.exports.deleteMovie = (req, res, next) => {
   const owner = req.user._id;
-  const movieId = req.params.id;
+  const { movieId } = req.params;
   Movie.findById(movieId)
     .then((movie) => {
       if (!movie) {
