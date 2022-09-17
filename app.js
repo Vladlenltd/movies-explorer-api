@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+require('dotenv').config();
 const helmet = require('helmet');
 const cors = require('cors');
 const { MONGO_DB_URL, PORT } = require('./utils/config');

@@ -47,7 +47,6 @@ module.exports.moviesPostValidator = celebrate({
 
 module.exports.moviesDeleteValidator = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().required().alphanum().length(24)
-      .hex(),
+    movieId: Joi.string().required().hex().length(24),
   }),
 });

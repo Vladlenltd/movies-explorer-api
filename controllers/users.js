@@ -51,6 +51,8 @@ module.exports.updateUserInfo = (req, res, next) => {
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new BadRequest('Некоректные данные'));
+      } else if (error.code === 11000) {
+        next(new DuplicateKeyError('Пользователь с указнным email существует'));
       } else {
         next(error);
       }
