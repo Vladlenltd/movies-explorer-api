@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-require('dotenv').config();
 const helmet = require('helmet');
 const cors = require('cors');
-const { MONGO_DB_URL, PORT } = require('./utils/config');
+const {
+  MONGO_DB_URL, PORT, MONGO_PROD_URL, NODE_ENV,
+} = require('./utils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
 const auth = require('./middlewares/auth');
@@ -16,7 +17,7 @@ const errorRouter = require('./routes/error');
 
 const app = express();
 
-mongoose.connect(MONGO_DB_URL, { useNewUrlParser: true });
+mongoose.connect(NODE_ENV === 'production' ? MONGO_DB_URL : MONGO_PROD_URL, { useNewUrlParser: true });
 app.use(express.json());
 
 app.use(requestLogger);
