@@ -38,8 +38,7 @@ module.exports.moviesPostValidator = celebrate({
     thumbnail: Joi.string().required().pattern(
       /https?:\/\/(www\.)?[a-zA-Z\d\-.]{1,}\.[a-z]{1,6}([/a-z0-9\-._~:?#[\]@!$&'()*+,;=]*)/,
     ),
-    movieId: Joi.string().required().alphanum().length(24)
-      .hex(),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
