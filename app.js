@@ -17,7 +17,7 @@ const errorRouter = require('./routes/error');
 
 const app = express();
 
-mongoose.connect(NODE_ENV === 'production' ? MONGO_DB_URL : MONGO_PROD_URL, { useNewUrlParser: true });
+mongoose.connect(NODE_ENV === 'production' ? MONGO_PROD_URL : MONGO_DB_URL, { useNewUrlParser: true });
 app.use(express.json());
 
 app.use(requestLogger);
