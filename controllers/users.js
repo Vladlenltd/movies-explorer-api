@@ -33,11 +33,7 @@ module.exports.getUserInfo = (req, res, next) => {
   const userId = req.user._id;
   return User.findById(userId)
     .then((data) => {
-      res.status(200).send({
-        email: data.email,
-        name: data.name,
-        _id: data._id,
-      });
+      res.status(200).send(data);
     })
     .catch(next);
 };
