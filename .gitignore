@@ -17,3 +17,4 @@ node_modules
 req.http
 #
 .env
+node_modules
