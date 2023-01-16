@@ -36,7 +36,7 @@ module.exports.getUserInfo = (req, res, next) => {
       res.status(200).send({
         email: data.email,
         name: data.name,
-        id: data._id,
+        _id: data._id,
       });
     })
     .catch(next);
