@@ -36,11 +36,12 @@ module.exports.getUserInfo = (req, res, next) => {
       res.status(200).send({
         email: data.email,
         name: data.name,
+        id: data._id,
       });
     })
     .catch(next);
 };
-
+console.log('level-1');
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
   const userId = req.user._id;
